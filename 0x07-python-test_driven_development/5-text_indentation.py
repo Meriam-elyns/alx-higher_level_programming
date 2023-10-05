@@ -1,35 +1,31 @@
 #!/usr/bin/python3
-"""Module built for Python 0x07 task 4. Error in project formatting scheme \
-advances file numbering +1 for every task after 0.
-"""
+# 5-text_indentation.py
+"""Defines a text-indentation function."""
 
 
 def text_indentation(text):
-    """Function that prints text with 2 new lines after each of the \
-characters '.',',', and '?' :
+    """Print text with two new lines after each '.', '?', and ':'.
 
     Args:
-        text (str): text to be edited
-
+        text (string): The text to print.
+    Raises:
+        TypeError: If text is not a string.
     """
-    if type(text) is not str:
-        raise TypeError('text must be a string')
+    if not isinstance(text, str):
+        raise TypeError("text must be a string")
 
-    j = 0
-    delims = '.?:'
+    c = 0
+    while c < len(text) and text[c] == ' ':
+        c += 1
 
-    for i, char in enumerate(text):
-        for delim in delims:
-            if char is delim:
-                j += 1
-                text = text[:i + j] + ' ' + text[i + j:]
+    while c < len(text):
+        print(text[c], end="")
+        if text[c] == "\n" or text[c] in ".?:":
+            if text[c] in ".?:":
+                print("\n")
+            c += 1
+            while c < len(text) and text[c] == ' ':
+                c += 1
+            continue
+        c += 1
 
-    list = text.split()
-
-    for word in list:
-        if word[-1:] is "." or word[-1:] is "?" or word[-1:] is ":":
-            print(word, end="\n\n")
-        elif word is list[len(list) - 1]:
-            print(word, end="")
-        else:
-            print(word, end=" ")

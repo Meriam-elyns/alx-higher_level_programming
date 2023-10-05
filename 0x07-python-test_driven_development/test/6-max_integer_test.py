@@ -1,60 +1,64 @@
 #!/usr/bin/python3
-"""Unittest for max_integer([..])
-"""
+# 6-max_integer_test.py
+"""Unittests for max_integer([..])."""
+
 import unittest
 max_integer = __import__('6-max_integer').max_integer
 
 
 class TestMaxInteger(unittest.TestCase):
-    def test_list_type(self):
-        """The argument 'list' must be an iterable type such as list, tuple or
-        str; or a TypeError will arise. Sets are iterable but not indexable,
-        which will also cause a TypeError.
-        """
-        # TypeError raised when list is not an iterable type
-        self.assertRaises(TypeError, max_integer, 5)
-        self.assertRaises(TypeError, max_integer, True)
-        # TypeError also for sets, as they cannot be indexed
-        self.assertRaises(TypeError, max_integer, {3, 5})
-        # program intended for lists
-        self.assertEqual(max_integer([3, 5]), 5)
-        # but also works with tuples
-        self.assertEqual(max_integer((3, 5)), 5)
-        # and strings, with each character evaluted by ASCII value
-        self.assertEqual(max_integer('actg'), 't')
+    """Define unittests for max_integer([..])."""
 
-    def test_list_length(self):
-        """The argument 'list' can be an iterable datatype (aside from sets)
-        of any length, including 1 or 0 members, except for tuples, which need
-        at least 2 members to be evaluated as that type.
-        """
-        # empty iterables produce no output
-        self.assertEqual(max_integer([]), None)
-        self.assertEqual(max_integer(()), None)
-        self.assertEqual(max_integer(''), None)
-        # length of 1 element simply returns that element for lists and strings
-        self.assertEqual(max_integer([5]), 5)
-        self.assertEqual(max_integer('a'), 'a')
-        # but a single member tuple is just evaulated as that member
-        self.assertRaises(TypeError, max_integer, (5))
+    def test_ordered_list(self):
+        """Test an ordered list of integers."""
+        ordered = [1, 2, 3, 4]
+        self.assertEqual(max_integer(ordered), 4)
 
-    def test_first_list_dimension_type(self):
-        """ASCII chars are implicity converted to int by '>' comparison.
-        Strings need to be with their own type, but ints, floats, and bools
-        can all be evaluated together: True as 1, and False as 0. If largest
-        value is a float, it is returned as a float.
-        """
-        # strings compare ASCII values
-        self.assertEqual(max_integer(['a', 'b']), 'b')
-        # but no mixing with other types
-        self.assertRaises(TypeError, max_integer, [3, 'a'])
-        # ints and floats evaluate togther
-        self.assertEqual(max_integer([3, 5.0]), 5.0)
-        self.assertEqual(max_integer([3, -5.3456]), 3)
-        # as well as with bools
-        self.assertEqual(max_integer([-1, -.5, False]), False)
-        self.assertEqual(max_integer([5, .544, True]), 5)
+    def test_unordered_list(self):
+        """Test an unordered list of integers."""
+        unordered = [1, 2, 4, 3]
+        self.assertEqual(max_integer(unordered), 4)
 
-    def test_higher_list_dimensions(self):
-        """First dimension list members can themselves also be iterables (except
+    def test_max_at_begginning(self):
+        """Test a list with a beginning max value."""
+        max_at_beginning = [4, 3, 2, 1]
+        self.assertEqual(max_integer(max_at_beginning), 4)
+
+    def test_empty_list(self):
+        """Test an empty list."""
+        empty = []
+        self.assertEqual(max_integer(empty), None)
+
+    def test_one_element_list(self):
+        """Test a list with a single element."""
+        one_element = [7]
+        self.assertEqual(max_integer(one_element), 7)
+
+    def test_floats(self):
+        """Test a list of floats."""
+        floats = [1.53, 6.33, -9.123, 15.2, 6.0]
+        self.assertEqual(max_integer(floats), 15.2)
+
+    def test_ints_and_floats(self):
+        """Test a list of ints and floats."""
+        ints_and_floats = [1.53, 15.5, -9, 15, 6]
+        self.assertEqual(max_integer(ints_and_floats), 15.5)
+
+    def test_string(self):
+        """Test a string."""
+        string = "Brennan"
+        self.assertEqual(max_integer(string), 'r')
+
+    def test_list_of_strings(self):
+        """Test a list of strings."""
+        strings = ["Brennan", "is", "my", "name"]
+        self.assertEqual(max_integer(strings), "name")
+
+    def test_empty_string(self):
+        """Test an empty string."""
+        self.assertEqual(max_integer(""), None)
+
+if __name__ == '__main__':
+    unittest.main()
+
 

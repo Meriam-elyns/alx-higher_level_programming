@@ -1,43 +1,102 @@
-The ``2-matrix_divided.py`` module
-==================================
-This module contains only one function: matrix_divided. Error in project formatting scheme advances file numbering +1 for every task after 0.
+# 2-matrix_divided.txt
 
-Using ``matrix_divided``
-------------------------
+==============================
+How to Use 2-matrix_divided.py
+==============================
 
-First import
-~~~~~~~~~~~~
-First import ``matrix_divided`` from the ``2-matrix_divided`` module. Since the file name contains a numeral, you can't use the simple ``from 2-matrix_divided import matrix_divided``. You can instead use the following syntax:
+This module defines a matrix division function ``matrix_divided(matrix, div)``.
+
+Usage
+=====
+
+``matrix_divided(...)`` returns a new matrix that is a copy of the parameter
+``matrix`` with all elements divided by ``div``.
+
+::
 
     >>> matrix_divided = __import__('2-matrix_divided').matrix_divided
+    >>> matrix = [
+    ...     [3, 6, 9],
+    ...     [12, 15, 18]
+    ... ]
+    >>> print(matrix_divided(matrix, 3))
+    [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]]
 
-Normal use
-~~~~~~~~~~
-Now matrix_divided can be used to divide all the elements of a matrix by an int or float. The quotients in the new matrix are rounded to the nearest second decimal place:
+Note that quotients are rounded to a maximum of two decimal places.
 
-    >>> matrix = [ [1, 2, 3], [4, 5, 6] ]
+::
+
+    >>> matrix = [
+    ...     [1, 2, 3],
+    ...     [4, 5, 6]
+    ... ]
     >>> print(matrix_divided(matrix, 3))
     [[0.33, 0.67, 1.0], [1.33, 1.67, 2.0]]
 
-The function can take floating point values as well as integers, but the quotients will still be rounded to 2 decimal places:
+The original matrix is left unchanged.
 
-    >>> matrix = [ [1, 2.2, 3], [4.1, 5.1, 6] ]
-    >>> print(matrix_divided(matrix, 3.14159))
-    [[0.32, 0.7, 0.95], [1.31, 1.62, 1.91]]
+::
 
-Exceptions
-~~~~~~~~~~
-``matrix`` must be a list, comprised of lists, themselves comprised of int or float type values; otherwise a TypeError is raised with the message ``matrix must be a matrix (list of lists) of integers/floats``. An empty list simply produces no output. The second-dimension lists in matrix should also be all of the same length, to avoid TypeError of ``Each row of the matrix must have the same size``:
+    >>> print(matrix)
+    [[1, 2, 3], [4, 5, 6]]
 
-matrix not a list:
-    >>> matrix = (1, 2, 3)
-    >>> matrix_divided(matrix, 3)
+The function can also handle floating-point numbers.
+
+::
+
+    >>> matrix = [
+    ...     [1.1, -2.2, 3.3],
+    ...     [4.4, 5.5, -6.6]
+    ... ]
+    >>> print(matrix_divided(matrix, 3))
+    [[0.37, -0.73, 1.1], [1.47, 1.83, -2.2]]
+
+Integers and floats can be combined.
+
+::
+
+    >>> matrix = [
+    ...     [1, -2.2, 3, 4.4, 5],
+    ...     [-6.6, 7.00, 8, 9.999, 10]
+    ... ]
+    >>> print(matrix_divided(matrix, 3))
+    [[0.33, -0.73, 1.0, 1.47, 1.67], [-2.2, 2.33, 2.67, 3.33, 3.33]]
+
+Invalid Matrices
+==============
+
+The parameter ``matrix`` must be a list of lists consisting of either ints or
+floats. If ``matrix`` is not a list, a TypeError is raised.
+
+::
+
+    >>> matrix = "not a list"
+    >>> print(matrix_divided(matrix, 3))
     Traceback (most recent call last):
-        ...
     TypeError: matrix must be a matrix (list of lists) of integers/floats
 
-empty list is okay:
+::
+
+    >>> matrix = None
+    >>> print(matrix_divided(matrix, 3))
+    Traceback (most recent call last):
+    TypeError: matrix must be a matrix (list of lists) of integers/floats
+
+Note that an empty list will raise the TypeError.
+
+::
+
     >>> matrix = []
-    >>> matrix_divided(matrix, 3)
-    []
+    >>> print(matrix_divided(matrix, 3))
+    Traceback (most recent call last):
+    TypeError: matrix must be a matrix (list of lists) of integers/floats
+
+But an empty list of lists will succeed.
+
+::
+
+    >>> matrix = [[]]
+    >>> print(matrix_divided(matrix, 3))
+    [[]]
+
 
