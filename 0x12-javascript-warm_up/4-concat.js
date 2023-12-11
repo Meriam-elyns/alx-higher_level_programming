@@ -1,11 +1,4 @@
 #!/usr/bin/node
+// prints two arguments passed to it, in the following format: “ is ”
 
-// Check if a valid number is provided as a command line argument
-const inputNumber = process.argv[2];
-
-if (isNaN(inputNumber) || inputNumber === undefined) {
-  console.log('Not a valid number');
-} else {
-  const parsedNumber = parseInt(inputNumber);
-  console.log('My number:', parsedNumber);
-}
+console.log(process.argv[2] + ' is ' + process.argv[3]);
