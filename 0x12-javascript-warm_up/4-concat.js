@@ -1,6 +1,11 @@
 #!/usr/bin/node
-if (isNaN(process.argv[2]) || process.argv[2] === undefined) {
-  console.log('Not a number');
+
+// Check if a valid number is provided as a command line argument
+const inputNumber = process.argv[2];
+
+if (isNaN(inputNumber) || inputNumber === undefined) {
+  console.log('Not a valid number');
 } else {
-  console.log('My number:', parseInt(process.argv[2]));
+  const parsedNumber = parseInt(inputNumber);
+  console.log('My number:', parsedNumber);
 }
